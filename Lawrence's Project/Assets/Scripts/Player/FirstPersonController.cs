@@ -40,9 +40,6 @@ public class FirstPersonController : MonoBehaviour
 	void Start()
 	{
 		cc = GetComponent<CharacterController>();
-
-		Cursor.lockState = CursorLockMode.Locked;
-		Cursor.visible = false;
 		charCamera = Camera.main.transform;
 
 	}
