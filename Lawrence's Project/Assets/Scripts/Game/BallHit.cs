@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BallHitTest : MonoBehaviour
+public class BallHit : MonoBehaviour
 {
     public Rigidbody ball;
     public Transform target;
@@ -10,12 +10,15 @@ public class BallHitTest : MonoBehaviour
     public Transform indicator;
     public float force;
     public LayerMask layerMask;
+    public Animator animator;
 
     RaycastHit hit;
     Ray ray;
 
     void Update()
     {
+        print(animator.GetCurrentAnimatorStateInfo(0).IsName("Swing"));
+
         ray = cam.ScreenPointToRay(Input.mousePosition);
         if(Physics.Raycast(ray, out hit, 100, layerMask))
         {
@@ -31,8 +34,9 @@ public class BallHitTest : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter(Collision other)
+    void OnTriggerEnter(Collider other)
     {
-        ball.AddForce(-(ball.position-target.position) * force, ForceMode.Impulse);
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Swing") && other.transform.tag == "Ball")
+            ball.AddForce(-(ball.position-target.position) * force, ForceMode.Impulse);
     }
 }

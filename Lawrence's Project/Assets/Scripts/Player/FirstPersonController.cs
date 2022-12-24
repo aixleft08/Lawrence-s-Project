@@ -26,8 +26,11 @@ public class FirstPersonController : MonoBehaviour
 	public bool allowJump = true;
 	public bool allowLook = true;
 
+	[Space(20)]
+	public Animator animator;
+
 	CharacterController cc;
-	float speed;
+	public float speed;
 	bool isGrounded = true;
 
 	Transform charCamera;
@@ -35,6 +38,7 @@ public class FirstPersonController : MonoBehaviour
 	Vector2 appliedMouseDelta;
 	Vector3 moveDirection = Vector3.zero;
 	float yVel;
+	float direction = 0;
 
 
 	void Start()
@@ -45,6 +49,8 @@ public class FirstPersonController : MonoBehaviour
 	}
 	void Update()
 	{
+		UpdateAnimation();
+
 		if(allowJump)
 			Jump();
 		if(allowLook)
@@ -53,9 +59,39 @@ public class FirstPersonController : MonoBehaviour
 			Move();
 	}
 
-	void Move()
+	void UpdateAnimation()
 	{
-		speed = Input.GetKey(runKey) ? runSpeed : walkSpeed;
+		if(Input.GetAxis("Vertical") < 0) animator.SetFloat("Forward", -1);
+		else animator.SetFloat("Forward", 1);
+
+		// IF WE ARE MOVING LEFT AND RIGHT ONLY
+		if(Input.GetAxis("Horizontal") != 0 && Input.GetAxis("Vertical") == 0)
+		{
+			direction = Mathf.Lerp(direction, Input.GetAxis("Horizontal"), Time.deltaTime * 3);
+		} else {
+			direction = Mathf.Lerp(direction, 0, Time.deltaTime * 2);
+		}
+
+		animator.SetBool("Moving", Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0);
+		animator.SetFloat("Direction", direction);
+
+		if(Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
+			animator.SetTrigger("Swing");
+	}
+
+	void Move()
+	{	
+		// IF WE'RE MOVING LEFT AND RIGHT ONLY
+		if((Input.GetAxis("Horizontal") != 0 && Input.GetAxis("Vertical") == 0) ||
+			(Input.GetAxis("Vertical") < 0))
+		{
+			speed = walkSpeed;
+		}
+
+		if(Input.GetAxis("Vertical") > 0)
+		{
+			speed = runSpeed;
+		}
 
 		Vector3 forward = transform.TransformDirection(Vector3.forward);
         Vector3 right = transform.TransformDirection(Vector3.right);
