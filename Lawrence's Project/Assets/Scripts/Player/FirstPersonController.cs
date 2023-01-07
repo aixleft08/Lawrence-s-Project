@@ -50,8 +50,6 @@ public class FirstPersonController : MonoBehaviour
 	void Update()
 	{
 		UpdateAnimation();
-
-		if(allowJump)
 			Jump();
 		if(allowLook)
 			Look();
@@ -114,11 +112,6 @@ public class FirstPersonController : MonoBehaviour
 			yVel += gravity * Time.deltaTime;
 		else
 			yVel = gravity;
-			
-		if (isGrounded)
-		{
-           yVel = Mathf.Sqrt(jumpStrength * -2f * (gravity ));
-		}
 	}
 
 	void Look()

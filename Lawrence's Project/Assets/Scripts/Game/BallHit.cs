@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,7 +18,6 @@ public class BallHit : MonoBehaviour
 
     void Update()
     {
-        print(animator.GetCurrentAnimatorStateInfo(0).IsName("Swing"));
 
         ray = cam.ScreenPointToRay(Input.mousePosition);
         if(Physics.Raycast(ray, out hit, 100, layerMask))
@@ -37,6 +37,9 @@ public class BallHit : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Swing") && other.transform.tag == "Ball")
+        {
+            ball.velocity = Vector3.zero;
             ball.AddForce(-(ball.position-target.position) * force, ForceMode.Impulse);
+        }
     }
 }
