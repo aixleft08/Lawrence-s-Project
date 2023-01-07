@@ -541,13 +541,13 @@ MonoBehaviour:
   walkSpeed: 3
   runSpeed: 5
   runKey: 304
-  jumpStrength: 2
+  jumpStrength: 0
   gravity: -20
   jumpKey: 32
   camSensitivity: 2
   camSmoothing: 2
   allowMove: 1
-  allowJump: 0
+  allowJump: 1
   allowLook: 0
   animator: {fileID: 278124589}
   speed: 0
@@ -1738,7 +1738,7 @@ MonoBehaviour:
   target: {fileID: 772768102}
   cam: {fileID: 2134437178}
   indicator: {fileID: 1877738179}
-  force: 1
+  force: 2
   layerMask:
     serializedVersion: 2
     m_Bits: 55

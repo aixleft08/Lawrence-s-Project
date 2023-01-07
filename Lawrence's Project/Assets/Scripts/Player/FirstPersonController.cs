@@ -115,7 +115,7 @@ public class FirstPersonController : MonoBehaviour
 		else
 			yVel = gravity;
 			
-		if (Input.GetKeyDown(jumpKey) && isGrounded)
+		if (isGrounded)
 		{
            yVel = Mathf.Sqrt(jumpStrength * -2f * (gravity ));
 		}
