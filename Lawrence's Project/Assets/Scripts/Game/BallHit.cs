@@ -41,5 +41,10 @@ public class BallHit : MonoBehaviour
             ball.velocity = Vector3.zero;
             ball.AddForce(-(ball.position-target.position) * force, ForceMode.Impulse);
         }
+
+        if(other.tag == "Wall")
+        {
+            ball.velocity /= 2;
+        }
     }
 }
