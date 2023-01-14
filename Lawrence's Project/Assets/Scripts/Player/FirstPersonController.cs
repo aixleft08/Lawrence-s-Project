@@ -73,8 +73,6 @@ public class FirstPersonController : MonoBehaviour
 		animator.SetBool("Moving", Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0);
 		animator.SetFloat("Direction", direction);
 
-		if(Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
-			animator.SetTrigger("Swing");
 	}
 
 	void Move()
