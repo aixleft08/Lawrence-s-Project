@@ -41,6 +41,13 @@ public class FirstPersonController : MonoBehaviour
 	float direction = 0;
 
 
+	public static FirstPersonController Instance;
+
+	void Awake()
+	{
+		Instance = this;
+	}
+
 	void Start()
 	{
 		cc = GetComponent<CharacterController>();

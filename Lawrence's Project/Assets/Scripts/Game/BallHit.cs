@@ -13,10 +13,6 @@ public class BallHit : MonoBehaviour
 
     [Space(20)]
     public float force;
-    public float forceChargeSpeed;
-    public float maxForce;
-    public float minForce;
-    public Image forceImage;
     public float yLevelHit;
 
     [Space(20)]
@@ -31,35 +27,10 @@ public class BallHit : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetMouseButton(0))
-        {
-            if(up)
-            {
-                if(force < maxForce)
-                {
-                    force += forceChargeSpeed * Time.deltaTime;
-                } else 
-                {
-                    up = false;
-                }
-            } else
-            {
-                if(force > minForce)
-                {
-                    force -= forceChargeSpeed * Time.deltaTime;
-                } else 
-                {
-                    up = true;
-                }
-            }
-        }
-
         if(Input.GetMouseButtonUp(0))
         {
             animator.SetTrigger("Swing");
         }
-
-        forceImage.fillAmount = Mathf.InverseLerp(minForce, maxForce, force);
 
         ray = cam.ScreenPointToRay(Input.mousePosition);
         if(Physics.Raycast(ray, out hit, 100, layerMask))
@@ -74,6 +45,9 @@ public class BallHit : MonoBehaviour
             indicator.rotation = Quaternion.FromToRotation (Vector3.up, hit.normal);
             Debug.DrawLine(cam.transform.position, hit.point, Color.red);
         }
+
+        if(ball.velocity.z < -15f) ball.velocity = new Vector3(ball.velocity.x, ball.velocity.y, -15f);
+        //if(ball.velocity.z < 0 && ball.velocity.z > -10) ball.velocity = new Vector3(ball.velocity.x, ball.velocity.y, -10f);
     }
 
     void OnTriggerStay(Collider other)
