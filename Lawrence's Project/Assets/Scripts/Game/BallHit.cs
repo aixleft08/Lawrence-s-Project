@@ -62,6 +62,8 @@ public class BallHit : MonoBehaviour
     {
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Swing") && other.transform.tag == "Ball" && canHit && Gameplay.Instance.currentlyHitting == Gameplay.Turns.PLAYER)
         {
+            SoundManager.Instance.PlayHitSound();
+
             Gameplay.Instance.gameState = Gameplay.GameState.RALLY;
             Gameplay.Instance.currentlyHitting = Gameplay.Turns.OPPONENT;
 

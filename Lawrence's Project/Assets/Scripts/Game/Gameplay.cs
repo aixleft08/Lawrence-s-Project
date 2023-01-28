@@ -69,6 +69,8 @@ public class Gameplay : MonoBehaviour
             if(!serving)
             {
                 serving = true;
+                
+                SoundManager.Instance.PlayCheer();
 
                 currentlyHitting = lastServedTurn;
                 BallHit.Instance.canHit = false;

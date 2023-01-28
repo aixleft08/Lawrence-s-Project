@@ -48,6 +48,9 @@ public class Opponent : MonoBehaviour
         if(other.tag == "Ball" && Gameplay.Instance.currentlyHitting == Gameplay.Turns.OPPONENT)
         {
             animator.SetTrigger("Swing");
+
+            SoundManager.Instance.PlayHitSound();
+
             Gameplay.Instance.gameState = Gameplay.GameState.RALLY;
             Gameplay.Instance.currentlyHitting = Gameplay.Turns.PLAYER;
 
