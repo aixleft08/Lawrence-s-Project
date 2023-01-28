@@ -45,9 +45,12 @@ public class Opponent : MonoBehaviour
     
     void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Ball")
+        if(other.tag == "Ball" && Gameplay.Instance.currentlyHitting == Gameplay.Turns.OPPONENT)
         {
             animator.SetTrigger("Swing");
+            Gameplay.Instance.gameState = Gameplay.GameState.RALLY;
+            Gameplay.Instance.currentlyHitting = Gameplay.Turns.PLAYER;
+
             ball.velocity = Vector3.zero;
             Vector3 targetChange = new Vector3(Random.Range(-6.5f,6.2f), Random.Range(yLevelHit.x, yLevelHit.y), 20);
             ball.AddForce(-(ball.position-targetChange) * Random.Range(force.x, force.y), ForceMode.Impulse);

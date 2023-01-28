@@ -14,6 +14,7 @@ public class BallHit : MonoBehaviour
     [Space(20)]
     public float force;
     public float yLevelHit;
+    public bool canHit;
 
     [Space(20)]
     public LayerMask layerMask;
@@ -24,6 +25,13 @@ public class BallHit : MonoBehaviour
 
     RaycastHit hit;
     Ray ray;
+
+    public static BallHit Instance;
+
+    void Awake()
+    {
+        Instance = this;
+    }
 
     void Update()
     {
@@ -52,8 +60,11 @@ public class BallHit : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Swing") && other.transform.tag == "Ball")
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Swing") && other.transform.tag == "Ball" && canHit && Gameplay.Instance.currentlyHitting == Gameplay.Turns.PLAYER)
         {
+            Gameplay.Instance.gameState = Gameplay.GameState.RALLY;
+            Gameplay.Instance.currentlyHitting = Gameplay.Turns.OPPONENT;
+
             ball.velocity = Vector3.zero;
             Vector3 targetChange = new Vector3(target.position.x, yLevelHit, target.position.z);
             ball.AddForce(-(ball.position-targetChange) * force, ForceMode.Impulse);
