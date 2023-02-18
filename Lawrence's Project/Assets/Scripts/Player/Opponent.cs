@@ -16,6 +16,7 @@ public class Opponent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        allowMove = Gameplay.Instance.currentlyHitting == Gameplay.Turns.OPPONENT;
         Vector3 direction = new Vector3(ball.position.x, 0.199f, ball.position.z);
         if(allowMove)
         transform.position = Vector3.MoveTowards(transform.position, direction, speed * Time.deltaTime);
@@ -52,7 +53,9 @@ public class Opponent : MonoBehaviour
             SoundManager.Instance.PlayHitSound();
 
             Gameplay.Instance.gameState = Gameplay.GameState.RALLY;
-            Gameplay.Instance.currentlyHitting = Gameplay.Turns.PLAYER;
+            Gameplay.Instance.ballHasBeenHit = true;
+            GroundCheck.Instance.groundHitCount = 0;
+            //Gameplay.Instance.currentlyHitting = Gameplay.Turns.PLAYER;
 
             ball.velocity = Vector3.zero;
             Vector3 targetChange = new Vector3(Random.Range(-6.5f,6.2f), Random.Range(yLevelHit.x, yLevelHit.y), 20);

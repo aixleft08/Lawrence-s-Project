@@ -29,6 +29,8 @@ public class Gameplay : MonoBehaviour
     bool serving;
     int startingCountdown;
 
+    [HideInInspector] public bool ballHasBeenHit;
+
     public static Gameplay Instance;
 
     void Awake()
@@ -136,7 +138,7 @@ public class Gameplay : MonoBehaviour
         AllowPlayerMovement(false);
     }
 
-    void SwitchTurns()
+    public void SwitchTurns()
     {
         if(lastServedTurn == Turns.PLAYER)
         {

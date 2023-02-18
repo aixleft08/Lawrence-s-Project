@@ -35,6 +35,7 @@ public class BallHit : MonoBehaviour
 
     void Update()
     {
+        if(ball.velocity.z < -0.1f && ball.velocity.z > -3f) ball.velocity = new Vector3(ball.velocity.x, ball.velocity.y, ball.velocity.z * 5);
         if(Input.GetMouseButtonUp(0))
         {
             animator.SetTrigger("Swing");
@@ -65,7 +66,9 @@ public class BallHit : MonoBehaviour
             SoundManager.Instance.PlayHitSound();
 
             Gameplay.Instance.gameState = Gameplay.GameState.RALLY;
-            Gameplay.Instance.currentlyHitting = Gameplay.Turns.OPPONENT;
+            Gameplay.Instance.ballHasBeenHit = true;
+            GroundCheck.Instance.groundHitCount = 0;
+            //Gameplay.Instance.currentlyHitting = Gameplay.Turns.OPPONENT;
 
             ball.velocity = Vector3.zero;
             Vector3 targetChange = new Vector3(target.position.x, yLevelHit, target.position.z);
