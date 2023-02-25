@@ -10,6 +10,8 @@ public class Gameplay : MonoBehaviour
     public Turns currentlyHitting;
     public bool winLast;
     public int countdownStart;
+    public int playerScore;
+    public int oppScore;
 
     [Space(20)]
     public Transform player;
@@ -17,6 +19,8 @@ public class Gameplay : MonoBehaviour
     public TMP_Text turnText;
     public TMP_Text countdownText;
     public Transform ball;
+    public TMP_Text playerScoreText;
+    public TMP_Text oppScoreText;
 
     [Space(20)]
     public ServiceArea leftServiceArea;
@@ -95,6 +99,9 @@ public class Gameplay : MonoBehaviour
         }
 
         turnText.text = "Turn: " + currentlyHitting;
+
+        playerScoreText.text = "Player Score: " + playerScore;
+        oppScoreText.text = "Opponent Score: " + oppScore;
     }
 
     void GotoServiceArea()

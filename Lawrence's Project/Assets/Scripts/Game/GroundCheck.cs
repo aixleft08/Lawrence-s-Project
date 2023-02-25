@@ -14,11 +14,34 @@ public class GroundCheck : MonoBehaviour
 
     void Update()
     {
-        if(groundHitCount >= 2) Gameplay.Instance.gameState = Gameplay.GameState.SERVING;
+        if(groundHitCount >= 2 && Gameplay.Instance.gameState != Gameplay.GameState.SERVING) 
+        {
+            if(Gameplay.Instance.currentlyHitting == Gameplay.Turns.OPPONENT)
+            {
+                Gameplay.Instance.playerScore++;
+            } else
+            {
+                Gameplay.Instance.oppScore++;
+            }
+            Gameplay.Instance.gameState = Gameplay.GameState.SERVING;
+        }
     }
 
     void OnCollisionEnter(Collision other)
     {
+        if(other.transform.tag == "Ball" && Gameplay.Instance.gameState == Gameplay.GameState.RALLY && 
+        !WallHit.Instance.hasHitWall)
+        {
+            if(Gameplay.Instance.currentlyHitting == Gameplay.Turns.OPPONENT)
+            {
+                Gameplay.Instance.playerScore++;
+            } else
+            {
+                Gameplay.Instance.oppScore++;
+            }
+            Gameplay.Instance.gameState = Gameplay.GameState.SERVING;
+        }
+
         if(other.transform.tag == "Ball" && Gameplay.Instance.gameState == Gameplay.GameState.RALLY && 
         WallHit.Instance.hasHitWall)
         {
