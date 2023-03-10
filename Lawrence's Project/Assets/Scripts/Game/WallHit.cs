@@ -20,6 +20,7 @@ public class WallHit : MonoBehaviour
             Gameplay.Instance.SwitchTurns();
             Gameplay.Instance.ballHasBeenHit = false;
             hasHitWall = true;
+            GroundCheck.Instance.groundHitCount = 0;
         }
     }
 }

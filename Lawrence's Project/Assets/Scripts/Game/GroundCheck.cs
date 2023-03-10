@@ -23,24 +23,25 @@ public class GroundCheck : MonoBehaviour
             {
                 Gameplay.Instance.oppScore++;
             }
+            groundHitCount = 0;
             Gameplay.Instance.gameState = Gameplay.GameState.SERVING;
         }
     }
 
     void OnCollisionEnter(Collision other)
     {
-        if(other.transform.tag == "Ball" && Gameplay.Instance.gameState == Gameplay.GameState.RALLY && 
-        !WallHit.Instance.hasHitWall)
-        {
-            if(Gameplay.Instance.currentlyHitting == Gameplay.Turns.OPPONENT)
-            {
-                Gameplay.Instance.playerScore++;
-            } else
-            {
-                Gameplay.Instance.oppScore++;
-            }
-            Gameplay.Instance.gameState = Gameplay.GameState.SERVING;
-        }
+        // if(other.transform.tag == "Ball" && Gameplay.Instance.gameState == Gameplay.GameState.RALLY && 
+        // !WallHit.Instance.hasHitWall)
+        // {
+        //     if(Gameplay.Instance.currentlyHitting == Gameplay.Turns.OPPONENT)
+        //     {
+        //         Gameplay.Instance.playerScore++;
+        //     } else
+        //     {
+        //         Gameplay.Instance.oppScore++;
+        //     }
+        //     Gameplay.Instance.gameState = Gameplay.GameState.SERVING;
+        // }
 
         if(other.transform.tag == "Ball" && Gameplay.Instance.gameState == Gameplay.GameState.RALLY && 
         WallHit.Instance.hasHitWall)
