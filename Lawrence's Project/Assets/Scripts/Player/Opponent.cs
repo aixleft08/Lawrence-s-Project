@@ -58,7 +58,7 @@ public class Opponent : MonoBehaviour
             //Gameplay.Instance.currentlyHitting = Gameplay.Turns.PLAYER;
 
             ball.velocity = Vector3.zero;
-            Vector3 targetChange = new Vector3(Random.Range(-6.5f,6.2f), Random.Range(yLevelHit.x, yLevelHit.y), 20);
+            Vector3 targetChange = new Vector3(Random.Range(-6.5f,-13.2f), Random.Range(yLevelHit.x, yLevelHit.y), -20);
             ball.AddForce(-(ball.position-targetChange) * Random.Range(force.x, force.y), ForceMode.Impulse);
         }
     }

@@ -19,12 +19,17 @@ public class GroundCheck : MonoBehaviour
             if(Gameplay.Instance.currentlyHitting == Gameplay.Turns.OPPONENT)
             {
                 Gameplay.Instance.playerScore++;
+                groundHitCount = 0;
+                Gameplay.Instance.gameState = Gameplay.GameState.SERVING;
+                return;
             } else
             {
                 Gameplay.Instance.oppScore++;
-            }
-            groundHitCount = 0;
+                groundHitCount = 0;
             Gameplay.Instance.gameState = Gameplay.GameState.SERVING;
+            return;
+            }
+            
         }
     }
 
