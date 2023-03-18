@@ -3,7 +3,27 @@ guid: 4e95a4e434e52405f9aa8262af8066e4
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pla_wht
+    second: {fileID: 2100000, guid: d87b24f0c3c53734499ad36246d4fc10, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: plastic_navy
+    second: {fileID: 2100000, guid: 7743a1d2076b86c4986eeb591c5238b3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: racket_B
+    second: {fileID: 2100000, guid: 7529d5860da08544fa5d422e6fa265d7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: suede
+    second: {fileID: 2100000, guid: c38e33d29c8c8c24ea69c675319427a7, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -88,7 +108,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0.00029999999
+    globalScale: 0.03
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
