@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class Gameplay : MonoBehaviour
 {
+    public GameObject menuUI;
+    public GameObject gameplayUI;
+    public GameObject menuCamera;
+    public GameObject tpCamera;
     public GameState gameState;
     public Turns lastServedTurn;
     public Turns currentlyHitting;
@@ -44,6 +48,25 @@ public class Gameplay : MonoBehaviour
 
     void Start()
     {
+        tpCamera.SetActive(false);
+        menuCamera.SetActive(true);
+        gameplayUI.SetActive(false);
+        menuUI.SetActive(true);
+        player.gameObject.SetActive(false);
+        opponent.gameObject.SetActive(false);
+        ball.gameObject.SetActive(false);
+    }
+
+    public void StartGame()
+    {
+        gameplayUI.SetActive(true);
+        menuUI.SetActive(false);
+        player.gameObject.SetActive(true);
+        opponent.gameObject.SetActive(true);
+        ball.gameObject.SetActive(true);
+        tpCamera.SetActive(true);
+        menuCamera.SetActive(false);
+
         gameState = GameState.SERVING;
         left = true;
         startingCountdown = countdownStart;
@@ -100,8 +123,8 @@ public class Gameplay : MonoBehaviour
 
         turnText.text = "Turn: " + currentlyHitting;
 
-        playerScoreText.text = "Player Score: " + playerScore;
-        oppScoreText.text = "Opponent Score: " + oppScore;
+        playerScoreText.text = "Player: " + playerScore;
+        oppScoreText.text = "Opponent: " + oppScore;
     }
 
     void GotoServiceArea()
