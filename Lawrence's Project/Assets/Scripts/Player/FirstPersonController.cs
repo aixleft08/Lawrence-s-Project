@@ -130,4 +130,8 @@ public class FirstPersonController : MonoBehaviour
 		transform.localRotation = Quaternion.AngleAxis(currentMouseLook.x, Vector3.up);
 	}
 	
+	public void QuitGame()
+	{
+		Application.Quit();
+	}
 }

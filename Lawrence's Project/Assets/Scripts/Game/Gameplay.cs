@@ -36,7 +36,8 @@ public class Gameplay : MonoBehaviour
     bool left;
     bool serving;
     int startingCountdown;
-
+    
+    public bool hasServedFirstTime;
     [HideInInspector] public bool ballHasBeenHit;
 
     public static Gameplay Instance;
@@ -70,8 +71,6 @@ public class Gameplay : MonoBehaviour
         gameState = GameState.SERVING;
         left = true;
         startingCountdown = countdownStart;
-
-        StartCoroutine(StartCountdown());
     }
 
     IEnumerator StartCountdown()
@@ -100,10 +99,9 @@ public class Gameplay : MonoBehaviour
                 serving = true;
                 
                 SoundManager.Instance.PlayCheer();
-
+                countdownStart = startingCountdown;
                 currentlyHitting = lastServedTurn;
                 BallHit.Instance.canHit = false;
-                countdownStart = startingCountdown;
                 ball.GetComponent<Rigidbody>().isKinematic = true;
 
                 GotoServiceArea();
@@ -111,12 +109,12 @@ public class Gameplay : MonoBehaviour
         }
         else if(gameState == GameState.RALLY) 
         {
-            AllowPlayerMovement(true);
+            //AllowPlayerMovement(true);
             opponent.GetComponent<Opponent>().allowMove = true;
             serving = false;
         } else 
         {
-            AllowPlayerMovement(false);
+            //AllowPlayerMovement(false);
             opponent.GetComponent<Opponent>().allowMove = false;
             serving = false;
         }
@@ -130,6 +128,7 @@ public class Gameplay : MonoBehaviour
     void GotoServiceArea()
     {
         StartCoroutine(StartCountdown());
+        hasServedFirstTime = false;
         
         if(winLast)
         {
@@ -165,7 +164,7 @@ public class Gameplay : MonoBehaviour
                 ball.position = leftServiceArea.transform.GetChild(0).position;
         }
 
-        AllowPlayerMovement(false);
+        //AllowPlayerMovement(false);
     }
 
     public void SwitchTurns()
@@ -179,12 +178,13 @@ public class Gameplay : MonoBehaviour
             lastServedTurn = Turns.PLAYER;
         }
         currentlyHitting = lastServedTurn;
+
     }
 
-    void AllowPlayerMovement(bool active)
+    public void AllowPlayerMovement(bool active)
     {
         FirstPersonController.Instance.allowMove = active;
         FirstPersonController.Instance.GetComponent<CharacterController>().enabled = active;
     }
-
+    
 }

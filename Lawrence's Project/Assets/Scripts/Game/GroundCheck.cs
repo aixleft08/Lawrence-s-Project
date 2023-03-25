@@ -14,22 +14,25 @@ public class GroundCheck : MonoBehaviour
 
     void Update()
     {
-        if(groundHitCount >= 2 && Gameplay.Instance.gameState != Gameplay.GameState.SERVING) 
+        if (groundHitCount >= 2 && Gameplay.Instance.gameState != Gameplay.GameState.SERVING)
         {
-            if(Gameplay.Instance.currentlyHitting == Gameplay.Turns.OPPONENT)
+            if (Gameplay.Instance.currentlyHitting == Gameplay.Turns.OPPONENT)
             {
                 Gameplay.Instance.playerScore++;
                 groundHitCount = 0;
                 Gameplay.Instance.gameState = Gameplay.GameState.SERVING;
+                Gameplay.Instance.hasServedFirstTime = false;
                 return;
-            } else
+            }
+            else
             {
                 Gameplay.Instance.oppScore++;
                 groundHitCount = 0;
-            Gameplay.Instance.gameState = Gameplay.GameState.SERVING;
-            return;
+                Gameplay.Instance.gameState = Gameplay.GameState.SERVING;
+                Gameplay.Instance.hasServedFirstTime = false;
+                return;
             }
-            
+
         }
     }
 
@@ -48,7 +51,7 @@ public class GroundCheck : MonoBehaviour
         //     Gameplay.Instance.gameState = Gameplay.GameState.SERVING;
         // }
 
-        if(other.transform.tag == "Ball" && Gameplay.Instance.gameState == Gameplay.GameState.RALLY && 
+        if (other.transform.tag == "Ball" && Gameplay.Instance.gameState == Gameplay.GameState.RALLY &&
         WallHit.Instance.hasHitWall)
         {
             groundHitCount++;
