@@ -10,6 +10,7 @@ public class BallHit : MonoBehaviour
     public Transform target;
     public Camera cam;
     public Transform indicator;
+    public Transform shoulderCheck;
 
     [Space(20)]
     public float force;
@@ -36,10 +37,12 @@ public class BallHit : MonoBehaviour
     void Update()
     {
         if(ball.velocity.z < -0.1f && ball.velocity.z > -3f) ball.velocity = new Vector3(ball.velocity.x, ball.velocity.y, ball.velocity.z * 5);
-        if(Input.GetMouseButtonUp(0))
+        if(Input.GetMouseButtonUp(0) && Gameplay.Instance.mouseMode)
         {
             animator.SetTrigger("Swing");
         }
+        if(!Gameplay.Instance.mouseMode && shoulderCheck.rotation.eulerAngles.y <= -50f)
+            animator.SetTrigger("Swing");
 
         ray = cam.ScreenPointToRay(Input.mousePosition);
         if(Physics.Raycast(ray, out hit, 100, layerMask))

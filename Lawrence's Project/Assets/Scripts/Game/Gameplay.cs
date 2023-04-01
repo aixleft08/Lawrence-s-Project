@@ -16,6 +16,7 @@ public class Gameplay : MonoBehaviour
     public int countdownStart;
     public int playerScore;
     public int oppScore;
+    public bool mouseMode;
 
     [Space(20)]
     public Transform player;

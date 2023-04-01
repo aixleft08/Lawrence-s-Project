@@ -40,6 +40,14 @@ public class BallBouncePrediction : MonoBehaviour
         Vector3 direction = new Vector3(segments[0].x, 0.199f, segments[0].z);
 
         if(Gameplay.Instance.currentlyHitting == Gameplay.Turns.PLAYER)
-        FirstPersonController.Instance.transform.position = Vector3.MoveTowards(FirstPersonController.Instance.transform.position, direction, FirstPersonController.Instance.walkSpeed * Time.deltaTime);
+        {
+            if(Gameplay.Instance.gameState == Gameplay.GameState.RALLY)
+                FirstPersonController.Instance.animator.SetBool("Moving", true);
+            FirstPersonController.Instance.transform.position = Vector3.MoveTowards(FirstPersonController.Instance.transform.position, direction, FirstPersonController.Instance.walkSpeed * Time.deltaTime);
+        } 
+        else
+        {
+            FirstPersonController.Instance.animator.SetBool("Moving", false);
+        }
     }
 }
