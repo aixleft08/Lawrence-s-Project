@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,6 +24,7 @@ public class BallHit : MonoBehaviour
     bool up;
 
     RaycastHit hit;
+    Vector3 targetChange = Vector3.zero;
     Ray ray;
 
     public static BallHit Instance;
@@ -76,7 +76,12 @@ public class BallHit : MonoBehaviour
             //Gameplay.Instance.currentlyHitting = Gameplay.Turns.OPPONENT;
 
             ball.velocity = Vector3.zero;
-            Vector3 targetChange = new Vector3(target.position.x, yLevelHit, target.position.z);
+
+            
+            if(!Gameplay.Instance.mouseMode)
+                targetChange = new Vector3(Random.Range(-4f, -15f), yLevelHit, -10f);
+            else
+                targetChange = new Vector3(target.position.x, yLevelHit, target.position.z);
             ball.AddForce(-(ball.position-targetChange) * force, ForceMode.Impulse);
         }
 
