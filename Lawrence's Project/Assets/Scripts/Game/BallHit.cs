@@ -41,8 +41,10 @@ public class BallHit : MonoBehaviour
         {
             animator.SetTrigger("Swing");
         }
-        if(!Gameplay.Instance.mouseMode && shoulderCheck.rotation.eulerAngles.y <= -50f)
+        if(!Gameplay.Instance.mouseMode && (shoulderCheck.rotation.eulerAngles.y <= 360 && shoulderCheck.rotation.eulerAngles.y >= 40))
             animator.SetTrigger("Swing");
+
+        Debug.Log(shoulderCheck.rotation.eulerAngles.y);
 
         ray = cam.ScreenPointToRay(Input.mousePosition);
         if(Physics.Raycast(ray, out hit, 100, layerMask))
