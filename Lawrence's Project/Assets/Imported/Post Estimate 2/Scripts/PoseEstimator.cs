@@ -120,6 +120,14 @@ public class PoseEstimator : MonoBehaviour
     // Stores the PoseNetModel currently in use
     private PoseNetModel currentModel;
 
+    public static PoseEstimator Instance;
+    public bool ready;
+
+    void Awake()
+    {
+        Instance = this;
+    }
+
 
     public void InitializeWebcam()
     {
@@ -232,6 +240,8 @@ public class PoseEstimator : MonoBehaviour
 
         // Populate the list of pose skeletons
         for (int i = 0; i < maxPoses; i++) skeletons[i] = new PoseSkeleton(pointScale, lineWidth);
+
+        ready = true;
     }
 
 
@@ -290,6 +300,8 @@ public class PoseEstimator : MonoBehaviour
 
         // Initialize input dimensions
         InitializeInputDims();
+
+        ready = true;
     }
 
 
@@ -405,6 +417,7 @@ public class PoseEstimator : MonoBehaviour
 
             // Initialize pose skeletons
             InitializeSkeletons();
+            ready = true;
         }
 
         // The smallest dimension of the videoTexture

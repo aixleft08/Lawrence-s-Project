@@ -174,6 +174,7 @@ public class PoseSkeleton
         {
             InitializeLine(i, lineWidth, colors[i]);
         }
+        
     }
 
     /// <summary>

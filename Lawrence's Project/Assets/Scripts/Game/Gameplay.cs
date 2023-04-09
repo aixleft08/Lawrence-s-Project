@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Gameplay : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class Gameplay : MonoBehaviour
     public int playerScore;
     public int oppScore;
     public bool mouseMode;
+    public Toggle mouseModeToggle;
 
     [Space(20)]
     public Transform player;
@@ -57,6 +59,8 @@ public class Gameplay : MonoBehaviour
         player.gameObject.SetActive(false);
         opponent.gameObject.SetActive(false);
         ball.gameObject.SetActive(false);
+
+        mouseModeToggle.isOn = mouseMode;
     }
 
     public void StartGame()
@@ -93,6 +97,7 @@ public class Gameplay : MonoBehaviour
 
     void Update()
     {
+        mouseMode = mouseModeToggle.isOn;
         if(gameState == GameState.SERVING)
         {
             if(!serving)

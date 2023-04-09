@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SoundManager : MonoBehaviour
 {
@@ -15,6 +16,9 @@ public class SoundManager : MonoBehaviour
     public AudioClip menuMusic;
     public AudioClip gameplayMusic;
 
+    public Slider musicSlider;
+    public Slider sfxSlider;
+
     public static SoundManager Instance;
 
     void Awake()
@@ -24,8 +28,17 @@ public class SoundManager : MonoBehaviour
 
     void Start()
     {
+        musicSlider.value = musicSource.volume;
+        sfxSlider.value = mainSource.volume;
+
         musicSource.loop = true;
         PlayMenuMusic();
+    }
+
+    void Update()
+    {
+        musicSource.volume = musicSlider.value;
+        mainSource.volume = sfxSlider.value;
     }
 
     public void PlayHitSound()

@@ -44,16 +44,16 @@ public class BallHit : MonoBehaviour
         {
             animator.SetTrigger("Swing");
         }
-        if(rightShoulder == null)
+        if(rightShoulder == null && !Gameplay.Instance.mouseMode && PoseEstimator.Instance.ready)
         {
             rightShoulder = GameObject.Find("rightShoulder").transform;
         }
-        if(rightWrist == null)
+        if(rightWrist == null && !Gameplay.Instance.mouseMode && PoseEstimator.Instance.ready)
         {
             rightWrist = GameObject.Find("rightWrist").transform;
         }
 
-        if(rightShoulder != null && rightWrist != null)
+        if(rightShoulder != null && rightWrist != null && PoseEstimator.Instance.ready)
         {
             if(!Gameplay.Instance.mouseMode && rightShoulder.position.x > rightWrist.position.x)
             {
