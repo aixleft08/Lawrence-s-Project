@@ -9,7 +9,6 @@ public class BallHit : MonoBehaviour
     public Transform target;
     public Camera cam;
     public Transform indicator;
-    public Transform shoulderCheck;
 
     [Space(20)]
     public float force;
@@ -27,12 +26,16 @@ public class BallHit : MonoBehaviour
     Vector3 targetChange = Vector3.zero;
     Ray ray;
 
+    Transform rightShoulder;
+    Transform rightWrist;
+
     public static BallHit Instance;
 
     void Awake()
     {
         Instance = this;
     }
+
 
     void Update()
     {
@@ -41,11 +44,23 @@ public class BallHit : MonoBehaviour
         {
             animator.SetTrigger("Swing");
         }
-        if(!Gameplay.Instance.mouseMode && (shoulderCheck.rotation.eulerAngles.y <= 360 && shoulderCheck.rotation.eulerAngles.y >= 40))
-            animator.SetTrigger("Swing");
+        if(rightShoulder == null)
+        {
+            rightShoulder = GameObject.Find("rightShoulder").transform;
+        }
+        if(rightWrist == null)
+        {
+            rightWrist = GameObject.Find("rightWrist").transform;
+        }
 
-        Debug.Log(shoulderCheck.rotation.eulerAngles.y);
-
+        if(rightShoulder != null && rightWrist != null)
+        {
+            if(!Gameplay.Instance.mouseMode && rightShoulder.position.x > rightWrist.position.x)
+            {
+                print("Swing");
+                animator.SetTrigger("Swing");
+            }
+        }
         ray = cam.ScreenPointToRay(Input.mousePosition);
         if(Physics.Raycast(ray, out hit, 100, layerMask))
         {
