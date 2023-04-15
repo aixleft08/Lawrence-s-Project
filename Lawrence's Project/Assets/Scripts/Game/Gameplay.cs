@@ -28,13 +28,15 @@ public class Gameplay : MonoBehaviour
     public Transform ball;
     public TMP_Text playerScoreText;
     public TMP_Text oppScoreText;
+    public GameObject winPanel;
+    public TMP_Text winText;
 
     [Space(20)]
     public ServiceArea leftServiceArea;
     public ServiceArea rightServiceArea;
     
     public enum Turns { PLAYER, OPPONENT };
-    public enum GameState { SERVING, RALLY, IDLE };
+    public enum GameState { SERVING, RALLY, IDLE, NONE };
 
     bool left;
     bool serving;
@@ -118,10 +120,16 @@ public class Gameplay : MonoBehaviour
             //AllowPlayerMovement(true);
             opponent.GetComponent<Opponent>().allowMove = true;
             serving = false;
-        } else 
+        } else if(gameState == GameState.IDLE) 
         {
-            //AllowPlayerMovement(false);
+            AllowPlayerMovement(false);
             opponent.GetComponent<Opponent>().allowMove = false;
+            serving = false;
+        } else
+        {
+            AllowPlayerMovement(false);
+            opponent.GetComponent<Opponent>().allowMove = false;
+            countdownText.text = "";
             serving = false;
         }
 
@@ -129,6 +137,37 @@ public class Gameplay : MonoBehaviour
 
         playerScoreText.text = "Player: " + playerScore;
         oppScoreText.text = "Opponent: " + oppScore;
+
+
+        if(playerScore >= 10 && oppScore >= 10)
+        {
+            if(playerScore-2 >= oppScore)
+            {
+                ball.gameObject.SetActive(false);
+                gameState = GameState.NONE;
+                winPanel.SetActive(true);
+                winText.text = "WIN!";
+            }
+            else if(oppScore-2 >= playerScore)
+            {
+                ball.gameObject.SetActive(false);
+                gameState = GameState.NONE;
+                winPanel.SetActive(true);
+                winText.text = "DEFEAT!";
+            }
+        } else if(playerScore >= 11)
+        {
+            ball.gameObject.SetActive(false);
+            gameState = GameState.NONE;
+            winPanel.SetActive(true);
+            winText.text = "WIN!";
+        } else if(oppScore >= 11)
+        {
+            ball.gameObject.SetActive(false);
+            gameState = GameState.NONE;
+            winPanel.SetActive(true);
+            winText.text = "DEFEAT!";
+        }
     }
 
     void GotoServiceArea()
